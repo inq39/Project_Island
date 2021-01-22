@@ -8,6 +8,7 @@ public class Mover : MonoBehaviour
     [SerializeField]
     private Transform _target;
     private NavMeshAgent _playerNavMeshAgent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,22 @@ public class Mover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _playerNavMeshAgent.SetDestination(_target.position);
+        if (Input.GetMouseButtonDown(0))
+        {
+            MoveToCursor();
+        }
+    }
+
+    private void MoveToCursor()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        bool hasHit = Physics.Raycast(ray, out hit, Mathf.Infinity);
+              
+        if (hasHit && hit.collider.name == "Terrain")
+        {
+            _playerNavMeshAgent.SetDestination(hit.point);
+        }
+
     }
 }
