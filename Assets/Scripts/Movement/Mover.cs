@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Island.Combat;
 
 namespace Island.Movement
 {
@@ -9,6 +10,7 @@ namespace Island.Movement
     {
         private NavMeshAgent _playerNavMeshAgent;
         private Animator _playerAnimator;
+        private Fighter _fighter;
 
         // Start is called before the first frame update
         void Start()
@@ -17,6 +19,12 @@ namespace Island.Movement
             if (_playerNavMeshAgent == null)
             {
                 Debug.LogError("NavMeshAgent is NULL.");
+            }
+
+            _fighter = GetComponent<Fighter>();
+            if (_fighter == null)
+            {
+                Debug.LogError("Fighter is NULL.");
             }
 
             _playerAnimator = GetComponent<Animator>();
@@ -42,6 +50,13 @@ namespace Island.Movement
         public void MoveTo(Vector3 destination)
         {
             _playerNavMeshAgent.SetDestination(destination);
+            _playerNavMeshAgent.isStopped = false;
+        }
+
+        public void StopMoving()
+        {
+            _playerNavMeshAgent.isStopped = true;
+            _fighter.CancelAttack();
         }
     }
 }
