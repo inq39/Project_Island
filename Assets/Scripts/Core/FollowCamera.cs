@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowCamera : MonoBehaviour
+namespace Island.Core
 {
-    [SerializeField]
-    private Transform _target;
-
-   
-    void LateUpdate()
+    public class FollowCamera : MonoBehaviour
     {
-        transform.position = _target.position;
+        [SerializeField]
+        private Transform _player;
+
+
+        void LateUpdate()
+        {
+            transform.position = _player.position;
+        }
     }
 }

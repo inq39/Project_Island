@@ -3,57 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Mover : MonoBehaviour
+namespace Island.Movement
 {
-    private NavMeshAgent _playerNavMeshAgent;
-    private Animator _playerAnimator;
-
-    // Start is called before the first frame update
-    void Start()
+    public class Mover : MonoBehaviour
     {
-        _playerNavMeshAgent = GetComponent<NavMeshAgent>();
-        if (_playerNavMeshAgent == null)
+        private NavMeshAgent _playerNavMeshAgent;
+        private Animator _playerAnimator;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            Debug.LogError("NavMeshAgent is NULL.");
+            _playerNavMeshAgent = GetComponent<NavMeshAgent>();
+            if (_playerNavMeshAgent == null)
+            {
+                Debug.LogError("NavMeshAgent is NULL.");
+            }
+
+            _playerAnimator = GetComponent<Animator>();
+            if (_playerAnimator == null)
+            {
+                Debug.LogError("Animator is NULL.");
+            }
         }
 
-        _playerAnimator = GetComponent<Animator>();
-        if (_playerAnimator == null)
+        // Update is called once per frame
+        void Update()
         {
-            Debug.LogError("Animator is NULL.");
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetMouseButton(0))
-        {
-            MoveToCursor();
+            UpdateAnimator();
         }
 
-        UpdateAnimator();
-    }
-
-    private void UpdateAnimator()
-    {
-        Vector3 localPlayerVelocity = transform.InverseTransformDirection(_playerNavMeshAgent.velocity);
-        float playerSpeed = localPlayerVelocity.z;
-        _playerAnimator.SetFloat("moveForward", playerSpeed);
-    }
-
-    private void MoveToCursor()
-    {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        bool hasHit = Physics.Raycast(ray, out hit, Mathf.Infinity);
-        
-        
-
-        if (hasHit && hit.collider.name == "Terrain")
+        private void UpdateAnimator()
         {
-            _playerNavMeshAgent.SetDestination(hit.point);          
+            Vector3 localPlayerVelocity = transform.InverseTransformDirection(_playerNavMeshAgent.velocity);
+            float playerSpeed = localPlayerVelocity.z;
+            _playerAnimator.SetFloat("moveForward", playerSpeed);
         }
-        
+
+        public void MoveTo(Vector3 destination)
+        {
+            _playerNavMeshAgent.SetDestination(destination);
+        }
     }
 }
