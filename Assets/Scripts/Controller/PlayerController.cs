@@ -41,11 +41,14 @@ namespace Island.Controller
             {
             CombatTarget target = hit.collider.GetComponent<CombatTarget>();
                 if (target == null) continue;
-
-                if (Input.GetMouseButtonDown(0))
+                else
                 {
-                    _fighter.Attack(target);
-                }                    
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        _fighter.Attack(target);
+                    }
+                }
+                                  
                 return true;          
             }                      
             return false;
@@ -54,13 +57,13 @@ namespace Island.Controller
         private bool InteractWithMovement()
         {
             RaycastHit hit;
-            bool hasHit = Physics.Raycast(GetMouseRay(), out hit, Mathf.Infinity);
+            bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
 
             if (hasHit)
             {
                 if (Input.GetMouseButton(0))
                 {
-                    _mover.MoveTo(hit.point);
+                    _mover.StartMoveAction(hit.point);
                 }
                 return true;
             }

@@ -18,9 +18,9 @@ namespace Island.Combat
         private void Update()
         {
             if (_target == null) return;
-            _isInRange = Vector3.Distance(transform.position, _target.position) < _weaponRange;
             
-            if (_target != null && !_isInRange)
+
+            if (!GetIsInRange())
             {
                 _mover.MoveTo(_target.position);
             }
@@ -28,6 +28,11 @@ namespace Island.Combat
             {
                 _mover.StopMoving();
             }
+        }
+
+        private bool GetIsInRange()
+        {
+            return Vector3.Distance(transform.position, _target.position) < _weaponRange;
         }
 
         public void Attack(CombatTarget combatTarget)

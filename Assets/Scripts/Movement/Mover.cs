@@ -47,6 +47,12 @@ namespace Island.Movement
             _playerAnimator.SetFloat("moveForward", playerSpeed);
         }
 
+        public void StartMoveAction(Vector3 destination)
+        {
+            _fighter.CancelAttack();
+            MoveTo(destination);
+        }
+
         public void MoveTo(Vector3 destination)
         {
             _playerNavMeshAgent.SetDestination(destination);
@@ -56,7 +62,7 @@ namespace Island.Movement
         public void StopMoving()
         {
             _playerNavMeshAgent.isStopped = true;
-            _fighter.CancelAttack();
+            
         }
     }
 }
