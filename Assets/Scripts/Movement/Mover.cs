@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using Island.Combat;
+using Island.Core;
 
 namespace Island.Movement
 {
-    public class Mover : MonoBehaviour
+    public class Mover : MonoBehaviour, IAction
     {
         private NavMeshAgent _playerNavMeshAgent;
         private Animator _playerAnimator;
-        private Fighter _fighter;
 
         // Start is called before the first frame update
         void Start()
@@ -21,12 +20,7 @@ namespace Island.Movement
                 Debug.LogError("NavMeshAgent is NULL.");
             }
 
-            _fighter = GetComponent<Fighter>();
-            if (_fighter == null)
-            {
-                Debug.LogError("Fighter is NULL.");
-            }
-
+           
             _playerAnimator = GetComponent<Animator>();
             if (_playerAnimator == null)
             {
@@ -49,7 +43,7 @@ namespace Island.Movement
 
         public void StartMoveAction(Vector3 destination)
         {
-            _fighter.CancelAttack();
+            GetComponent<ActionScheduler>().StartAction(this);
             MoveTo(destination);
         }
 
@@ -59,10 +53,12 @@ namespace Island.Movement
             _playerNavMeshAgent.isStopped = false;
         }
 
-        public void StopMoving()
+        public void Cancel()
         {
             _playerNavMeshAgent.isStopped = true;
             
         }
+
+       
     }
 }
