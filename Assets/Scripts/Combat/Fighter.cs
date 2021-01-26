@@ -11,10 +11,18 @@ namespace Island.Combat
         private Transform _target;
         private Mover _mover;
         private bool _isInRange;
-
+        private Animator _playerAnimator;
+ 
         private void Start()
         {
             _mover = GetComponent<Mover>();
+            
+            _playerAnimator = GetComponent<Animator>();
+            if (_playerAnimator == null)
+            {
+                Debug.LogError("Animator is NULL.");
+            }
+
         }
         private void Update()
         {
@@ -28,7 +36,13 @@ namespace Island.Combat
             else
             {
                 _mover.Cancel();
+                AttackingBehavior();
             }
+        }
+
+        private void AttackingBehavior()
+        {
+            _playerAnimator.SetTrigger("attack");
         }
 
         private bool GetIsInRange()
@@ -44,9 +58,11 @@ namespace Island.Combat
 
         public void Cancel()
         {
-            _target = null;
+            _target = null;           
         }
 
-       
+        //Animation Event
+        void Hit() { }
+     
     }
 }
