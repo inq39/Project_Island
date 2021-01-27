@@ -1600,6 +1600,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8385390255609671000, guid: d9339b584fd665a4aa59c9e8f8bdaed1,
+        type: 3}
+      propertyPath: _damageValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8385390255609671000, guid: d9339b584fd665a4aa59c9e8f8bdaed1,
+        type: 3}
+      propertyPath: _weaponRange
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9339b584fd665a4aa59c9e8f8bdaed1, type: 3}
 --- !u!4 &4883278144778997184 stripped
