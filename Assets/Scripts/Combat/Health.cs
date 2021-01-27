@@ -8,6 +8,15 @@ namespace Island.Combat
     {
         [SerializeField]
         private float _health = 100;
+        private Animator _animator;
+        private bool _isDead = false;
+
+        private void Start()
+        {
+            _animator = GetComponent<Animator>();
+            if (_animator == null) 
+                Debug.LogError("Animator is NULL.");
+        }
 
         public void TakeDamage(float damage)
         {
@@ -18,6 +27,12 @@ namespace Island.Combat
             _health -= damage;
             better: */
             _health = Mathf.Max(_health - damage, 0);
+
+            if (_health == 0 && !_isDead)
+            {
+                _animator.SetTrigger("die");
+                _isDead = true;
+            }
         }
     }
 }
