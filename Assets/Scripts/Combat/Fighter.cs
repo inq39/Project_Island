@@ -71,10 +71,10 @@ namespace Island.Combat
 
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, _target.transform.position) < _weaponRange;
+            return Mathf.Abs(Vector3.Distance(transform.position, _target.transform.position)) < _weaponRange;
         }
 
-        public void Attack(CombatTarget combatTarget)
+        public void Attack(GameObject combatTarget)
         {
             GetComponent<ActionScheduler>().StartAction(this);
             _target = combatTarget.GetComponent<Health>();
@@ -87,11 +87,17 @@ namespace Island.Combat
         public void Cancel()
         {
             _target = null;
-            _playerAnimator.SetTrigger("stopAttack");
-            _playerAnimator.ResetTrigger("attack");
+            TriggerCancel();
+
         }
 
-        public bool CanAttack(CombatTarget combatTarget)
+        private void TriggerCancel()
+        {
+            _playerAnimator.ResetTrigger("attack");
+            _playerAnimator.SetTrigger("stopAttack");
+        }
+
+        public bool CanAttack(GameObject combatTarget)
         {
             if (combatTarget == false) { return false; }
             Health targetToTest = combatTarget.GetComponent<Health>();

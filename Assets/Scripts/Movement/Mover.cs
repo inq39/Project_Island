@@ -10,6 +10,7 @@ namespace Island.Movement
     {
         private NavMeshAgent _playerNavMeshAgent;
         private Animator _playerAnimator;
+        private Health _health;
 
         // Start is called before the first frame update
         void Start()
@@ -20,7 +21,12 @@ namespace Island.Movement
                 Debug.LogError("NavMeshAgent is NULL.");
             }
 
-           
+            _health = GetComponent<Health>();
+            if (_health == null)
+            {
+                Debug.Log("Health is NULL.");
+            }
+
             _playerAnimator = GetComponent<Animator>();
             if (_playerAnimator == null)
             {
@@ -31,6 +37,7 @@ namespace Island.Movement
         // Update is called once per frame
         void Update()
         {
+            _playerNavMeshAgent.enabled = !_health.IsDead();
             UpdateAnimator();
         }
 

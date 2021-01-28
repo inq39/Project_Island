@@ -16,10 +16,12 @@ namespace Island.Core
                 
             }
             _currentAction = action;
-
-
         }
 
+        public void CancelAction()
+        {
+            StartAction(null);
+        }
 
     }
 }

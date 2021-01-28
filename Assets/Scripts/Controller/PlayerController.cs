@@ -4,6 +4,7 @@ using UnityEngine;
 using Island.Movement;
 using System;
 using Island.Combat;
+using Island.Core;
 
 namespace Island.Controller
 {
@@ -11,6 +12,7 @@ namespace Island.Controller
     {
         private Mover _mover;
         private Fighter _fighter;
+        private Health _health;
         // Start is called before the first frame update
         void Start()
         {
@@ -25,11 +27,18 @@ namespace Island.Controller
             {
                 Debug.LogError("Fighter is NULL.");
             }
+
+            _health = GetComponent<Health>();
+            if (_health == null)
+            {
+                Debug.Log("Health is NULL.");
+            }
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (_health.IsDead()) { return; }
             if (InteractWithCombat() == true) return;
             if (InteractWithMovement() == true) return;
         }
@@ -39,15 +48,13 @@ namespace Island.Controller
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
             foreach (RaycastHit hit in hits)
             {
-            CombatTarget target = hit.collider.GetComponent<CombatTarget>();
-                if (!_fighter.CanAttack(target))
-                {
-                    continue;
-                }           
+                CombatTarget target = hit.collider.GetComponent<CombatTarget>();
+                if (target == null) { continue; }
+                if (!_fighter.CanAttack(target.gameObject)) { continue; }           
                 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    _fighter.Attack(target);
+                    _fighter.Attack(target.gameObject);
                 }
                 
                                   

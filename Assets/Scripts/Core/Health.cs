@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Island.Combat
+namespace Island.Core
 {
     public class Health : MonoBehaviour
     {
@@ -10,6 +10,7 @@ namespace Island.Combat
         private float _health = 100;
         private Animator _animator;
         private bool _isDead = false;
+        private ActionScheduler _actionScheduler;
         public bool IsDead()
         {
             return _isDead;
@@ -22,20 +23,23 @@ namespace Island.Combat
         }
 
         public void TakeDamage(float damage)
-        {
-            /*if (damage >= _health)
-            {
-                _health = 0;
-            }
-            _health -= damage;
-            better: */
+        {           
             _health = Mathf.Max(_health - damage, 0);
 
-            if (_health == 0 && !_isDead)
+            if (_health == 0)
             {
-                _animator.SetTrigger("die");
-                _isDead = true;
+                Die();
             }
+        }
+
+        private void Die()
+        {
+            if (_isDead) { return; }
+            _isDead = true;
+            _animator.SetTrigger("die");
+            _actionScheduler.CancelAction();
+            
+            
         }
     }
 }
