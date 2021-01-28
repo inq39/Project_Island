@@ -10,7 +10,10 @@ namespace Island.Combat
         private float _health = 100;
         private Animator _animator;
         private bool _isDead = false;
-
+        public bool IsDead()
+        {
+            return _isDead;
+        }
         private void Start()
         {
             _animator = GetComponent<Animator>();

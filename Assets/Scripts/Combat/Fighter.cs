@@ -10,7 +10,7 @@ namespace Island.Combat
         private float _weaponRange = 2f;
         [SerializeField]
         private float _timeBetweenAttacks = 2f;
-        private Transform _target;
+        private Health _target;
         private Mover _mover;
         private bool _isInRange;
         private Animator _playerAnimator;
@@ -32,11 +32,11 @@ namespace Island.Combat
         private void Update()
         {
             if (_target == null) return;
-            
+            if (_target.IsDead()) return;
 
             if (!GetIsInRange())
             {               
-                _mover.MoveTo(_target.position);
+                _mover.MoveTo(_target.transform.position);
             }
             else
             {
@@ -57,27 +57,29 @@ namespace Island.Combat
 
         //Animation Event
         void Hit() 
-        {
-            if (_target == null) return;
-            Health enemyHealth = _target.GetComponent<Health>();
-            if (enemyHealth == null) return;
-            enemyHealth.TakeDamage(_damageValue);
+        {        
+            _target.TakeDamage(_damageValue);
         }
 
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, _target.position) < _weaponRange;
+            return Vector3.Distance(transform.position, _target.transform.position) < _weaponRange;
         }
 
         public void Attack(CombatTarget combatTarget)
         {
             GetComponent<ActionScheduler>().StartAction(this);
-            _target = combatTarget.transform;           
+            _target = combatTarget.GetComponent<Health>();
+            if (_target == null)
+            {
+                Debug.LogError("Health of Target is NULL.");
+            }
         }
 
         public void Cancel()
         {
-            _target = null;           
+            _target = null;
+            _playerAnimator.SetTrigger("stopAttack");
         }
 
         
