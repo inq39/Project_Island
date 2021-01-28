@@ -49,15 +49,23 @@ namespace Island.Combat
         {
             if (Time.time >= _lastTimeAttack + _timeBetweenAttacks)
             {
-                _playerAnimator.SetTrigger("attack");
-                
+                transform.LookAt(_target.transform);
+                TriggerAttack();
+
                 _lastTimeAttack = Time.time;
-            }        
+            }
+        }
+
+        private void TriggerAttack()
+        {
+            _playerAnimator.ResetTrigger("stopAttack");
+            _playerAnimator.SetTrigger("attack");
         }
 
         //Animation Event
         void Hit() 
-        {        
+        {
+            if (_target == null) { return; };
             _target.TakeDamage(_damageValue);
         }
 
@@ -80,9 +88,15 @@ namespace Island.Combat
         {
             _target = null;
             _playerAnimator.SetTrigger("stopAttack");
+            _playerAnimator.ResetTrigger("attack");
         }
 
-        
+        public bool CanAttack(CombatTarget combatTarget)
+        {
+            if (combatTarget == false) { return false; }
+            Health targetToTest = combatTarget.GetComponent<Health>();
+            return (targetToTest != null && !targetToTest.IsDead());         
+        }
      
     }
 }

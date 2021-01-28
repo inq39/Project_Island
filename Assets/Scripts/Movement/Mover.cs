@@ -50,6 +50,7 @@ namespace Island.Movement
         public void MoveTo(Vector3 destination)
         {
             _playerNavMeshAgent.SetDestination(destination);
+            
             _playerNavMeshAgent.isStopped = false;
         }
 

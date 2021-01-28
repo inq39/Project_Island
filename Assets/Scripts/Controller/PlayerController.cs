@@ -40,14 +40,16 @@ namespace Island.Controller
             foreach (RaycastHit hit in hits)
             {
             CombatTarget target = hit.collider.GetComponent<CombatTarget>();
-                if (target == null) continue;
-                else
+                if (!_fighter.CanAttack(target))
                 {
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        _fighter.Attack(target);
-                    }
+                    continue;
+                }           
+                
+                if (Input.GetMouseButtonDown(0))
+                {
+                    _fighter.Attack(target);
                 }
+                
                                   
                 return true;          
             }                      
