@@ -5,6 +5,7 @@ using Island.Movement;
 using Island.Combat;
 using Island.Core;
 using UnityEngine.AI;
+using System;
 
 namespace Island.Controller
 {
@@ -16,6 +17,10 @@ namespace Island.Controller
         private Fighter _fighter;
         private GameObject _player;
         private Health _health;
+        private Vector3 _guardOriginPosition;
+        private ActionScheduler _actionScheduler;
+        private float _lastTimeSeenPlayer = 0;
+        private float _waitTimeAndSearchPlayer = 5f;
 
         private void Start()
         {
@@ -40,6 +45,14 @@ namespace Island.Controller
             {
                 Debug.Log("Health is NULL.");
             }
+
+            _actionScheduler = GetComponent<ActionScheduler>();
+            if (_actionScheduler == null)
+            {
+                Debug.LogError("ActionScheduler is NULL.");
+            }
+
+            _guardOriginPosition = transform.position;
         }
 
         private void Update()
@@ -50,12 +63,32 @@ namespace Island.Controller
             }
             if (InAttackRangeCalculation() && _fighter.CanAttack(_player))
             {
-                _fighter.Attack(_player);
+                AttackBehaviour();           
+            }
+            else if (Time.time < _waitTimeAndSearchPlayer + _lastTimeSeenPlayer)
+            {
+                WaitBehaviour();
             }
             else
             {
-                _fighter.Cancel();
+                ReturnBehaviour();
             }
+        }
+
+        private void ReturnBehaviour()
+        {
+            _mover.StartMoveAction(_guardOriginPosition);
+        }
+
+        private void AttackBehaviour()
+        {
+            _fighter.Attack(_player);
+            _lastTimeSeenPlayer = Time.time;
+        }
+
+        private void WaitBehaviour()
+        {
+            _actionScheduler.CancelAction();
         }
 
         private bool InAttackRangeCalculation()
@@ -63,7 +96,11 @@ namespace Island.Controller
             float distance = Mathf.Abs(Vector3.Distance(_player.transform.position, transform.position));
             return (distance < _chaseDistance);     
         }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = new Color(1, 1, 0, 0.5F);
+            Gizmos.DrawSphere(transform.position, _chaseDistance);
+        }
     }
-
-
 }
