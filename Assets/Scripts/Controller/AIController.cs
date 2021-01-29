@@ -13,14 +13,22 @@ namespace Island.Controller
     {
         [SerializeField]
         private float _chaseDistance = 5f;
+        [SerializeField]
+        private float _waitTimeAndSearchPlayer = 5f;
+        [SerializeField]
+        private PatrolPath _patrolPath;
+        private float _lastTimeSeenPlayer = 0;
+        [SerializeField]
+        private float _patrolPathTolerance = 1f;
         private Mover _mover;
         private Fighter _fighter;
         private GameObject _player;
         private Health _health;
         private Vector3 _guardOriginPosition;
         private ActionScheduler _actionScheduler;
-        private float _lastTimeSeenPlayer = 0;
-        private float _waitTimeAndSearchPlayer = 5f;
+        private int _patrolPathIndex = 0;
+        private float _lastWaitAtPatrolPoint = 0f;
+        private float _waitTime = 3f;
 
         private void Start()
         {
@@ -71,13 +79,52 @@ namespace Island.Controller
             }
             else
             {
-                ReturnBehaviour();
+                PatrolBehaviour();
             }
         }
 
-        private void ReturnBehaviour()
+        private void PatrolBehaviour()
         {
-            _mover.StartMoveAction(_guardOriginPosition);
+            Vector3 nextPosition = _guardOriginPosition;
+
+            if (_patrolPath != null)
+            {
+                if (AtWayPoint())
+                {
+                    if (_lastWaitAtPatrolPoint + _waitTime < Time.time)
+                    {
+                        CycleWayPoint();
+                    }                   
+                }
+                nextPosition = GetCurrentWaypoint();
+            }
+            _mover.StartMoveAction(nextPosition);
+        }
+
+        private Vector3 GetCurrentWaypoint()
+        {
+            return _patrolPath.transform.GetChild(_patrolPathIndex).transform.position;
+        }
+
+        private void CycleWayPoint()
+        {
+            if (_patrolPathIndex < _patrolPath.transform.childCount -1)
+            {
+                _patrolPathIndex++;
+                _lastWaitAtPatrolPoint = Time.time;
+            }
+            else
+            {
+                _patrolPathIndex = 0;
+                _lastWaitAtPatrolPoint = Time.time;
+            }
+        }
+
+        private bool AtWayPoint()
+        {
+            float distanceToWayPoint = Vector3.Distance(transform.position, GetCurrentWaypoint());     
+            return (distanceToWayPoint <= _patrolPathTolerance);
+           
         }
 
         private void AttackBehaviour()
@@ -93,7 +140,7 @@ namespace Island.Controller
 
         private bool InAttackRangeCalculation()
         {
-            float distance = Mathf.Abs(Vector3.Distance(_player.transform.position, transform.position));
+            float distance = Vector3.Distance(_player.transform.position, transform.position);
             return (distance < _chaseDistance);     
         }
 
