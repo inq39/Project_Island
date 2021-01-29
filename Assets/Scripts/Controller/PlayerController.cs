@@ -50,14 +50,14 @@ namespace Island.Controller
             {
                 CombatTarget target = hit.collider.GetComponent<CombatTarget>();
                 if (target == null) { continue; }
+
+
                 if (!_fighter.CanAttack(target.gameObject)) { continue; }           
                 
                 if (Input.GetMouseButtonDown(0))
                 {
                     _fighter.Attack(target.gameObject);
-                }
-                
-                                  
+                }                                 
                 return true;          
             }                      
             return false;

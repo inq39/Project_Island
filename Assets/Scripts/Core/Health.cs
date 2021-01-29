@@ -20,6 +20,10 @@ namespace Island.Core
             _animator = GetComponent<Animator>();
             if (_animator == null) 
                 Debug.LogError("Animator is NULL.");
+
+            _actionScheduler = GetComponent<ActionScheduler>();
+            if (_actionScheduler == null)
+                Debug.LogError("ActionScheduler is NULL.");
         }
 
         public void TakeDamage(float damage)
@@ -37,9 +41,7 @@ namespace Island.Core
             if (_isDead) { return; }
             _isDead = true;
             _animator.SetTrigger("die");
-            _actionScheduler.CancelAction();
-            
-            
+            _actionScheduler.CancelAction();          
         }
     }
 }

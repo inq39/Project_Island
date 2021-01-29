@@ -14,7 +14,7 @@ namespace Island.Combat
         private Mover _mover;
         private bool _isInRange;
         private Animator _playerAnimator;
-        private float _lastTimeAttack;
+        private float _lastTimeAttack = Mathf.NegativeInfinity;
         [SerializeField]
         private float _damageValue;
 
@@ -86,9 +86,9 @@ namespace Island.Combat
 
         public void Cancel()
         {
-            _target = null;
+            
             TriggerCancel();
-
+            _target = null;
         }
 
         private void TriggerCancel()
@@ -99,7 +99,7 @@ namespace Island.Combat
 
         public bool CanAttack(GameObject combatTarget)
         {
-            if (combatTarget == false) { return false; }
+            if (combatTarget == null) { return false; }
             Health targetToTest = combatTarget.GetComponent<Health>();
             return (targetToTest != null && !targetToTest.IsDead());         
         }

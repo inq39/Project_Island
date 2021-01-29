@@ -4,6 +4,7 @@ using UnityEngine;
 using Island.Movement;
 using Island.Combat;
 using Island.Core;
+using UnityEngine.AI;
 
 namespace Island.Controller
 {
@@ -43,7 +44,10 @@ namespace Island.Controller
 
         private void Update()
         {
-            if (_health.IsDead()) { return; }
+            if (_health.IsDead()) 
+            {
+                return;
+            }
             if (InAttackRangeCalculation() && _fighter.CanAttack(_player))
             {
                 _fighter.Attack(_player);

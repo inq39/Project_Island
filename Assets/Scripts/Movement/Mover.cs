@@ -37,7 +37,7 @@ namespace Island.Movement
         // Update is called once per frame
         void Update()
         {
-            _playerNavMeshAgent.enabled = !_health.IsDead();
+            DeactivateNavMeshAgent();
             UpdateAnimator();
         }
 
@@ -67,6 +67,14 @@ namespace Island.Movement
             
         }
 
+        public void DeactivateNavMeshAgent()
+        {
+            if (_health.IsDead())
+            {
+                _playerNavMeshAgent.enabled = false;      
+            }
+            
+        }
        
     }
 }
