@@ -28,7 +28,11 @@ namespace Island.Controller
         private ActionScheduler _actionScheduler;
         private int _patrolPathIndex = 0;
         private float _lastWaitAtPatrolPoint = 0f;
+        [SerializeField]
         private float _waitTime = 3f;
+        [Range(0, 1)]
+        [SerializeField]
+        private float _patrolSpeedFraction = 0.2f;
 
         private void Start()
         {
@@ -98,7 +102,7 @@ namespace Island.Controller
                 }
                 nextPosition = GetCurrentWaypoint();
             }
-            _mover.StartMoveAction(nextPosition);
+            _mover.StartMoveAction(nextPosition, _patrolSpeedFraction);
         }
 
         private Vector3 GetCurrentWaypoint()

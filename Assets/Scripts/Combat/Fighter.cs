@@ -36,7 +36,7 @@ namespace Island.Combat
 
             if (!GetIsInRange())
             {               
-                _mover.MoveTo(_target.transform.position);
+                _mover.MoveTo(_target.transform.position, 1f);
             }
             else
             {

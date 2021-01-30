@@ -13,6 +13,7 @@ namespace Island.Controller
         private Mover _mover;
         private Fighter _fighter;
         private Health _health;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -72,7 +73,7 @@ namespace Island.Controller
             {
                 if (Input.GetMouseButton(0))
                 {
-                    _mover.StartMoveAction(hit.point);
+                    _mover.StartMoveAction(hit.point, 1f);
                 }
                 return true;
             }
