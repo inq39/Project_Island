@@ -89,6 +89,7 @@ namespace Island.Combat
             
             TriggerCancel();
             _target = null;
+            _mover.Cancel();
         }
 
         private void TriggerCancel()
