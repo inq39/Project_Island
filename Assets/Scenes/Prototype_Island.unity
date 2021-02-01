@@ -137,7 +137,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 23568807}
-  m_LocalRotation: {x: 0.22521375, y: -0.4313601, z: 0.1121297, w: 0.86639154}
+  m_LocalRotation: {x: 0.22521374, y: -0.4313601, z: 0.1121297, w: 0.86639154}
   m_LocalPosition: {x: -18.047056, y: 26.909492, z: -1.7663269}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -193,7 +193,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.602649, y: 1}
+    m_SensorSize: {x: 1.5993946, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -951,7 +951,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.602649, y: 1}
+    m_SensorSize: {x: 1.5993946, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1225,6 +1225,7 @@ Transform:
   - {fileID: 292826153}
   - {fileID: 170076735}
   - {fileID: 1049124071}
+  - {fileID: 784169390}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1856,6 +1857,37 @@ Transform:
   m_Father: {fileID: 1952889932}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!1 &784169389
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 784169390}
+  m_Layer: 0
+  m_Name: Portals
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &784169390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784169389}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 38.74724, y: -11.28661, z: 8.872693}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1839683159}
+  m_Father: {fileID: 477714742}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &784732675
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4549,7 +4581,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.602649, y: 1}
+    m_SensorSize: {x: 1.5993946, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4640,6 +4672,80 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1827879483}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1839683158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1839683159}
+  - component: {fileID: 1839683162}
+  - component: {fileID: 1839683161}
+  - component: {fileID: 1839683160}
+  m_Layer: 2
+  m_Name: Portal_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1839683159
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839683158}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.535469, y: 10.441673, z: -13.294744}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 784169390}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1839683160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839683158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6764b90f4b6b94744b6a3643b80aba1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1839683161
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839683158}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.6, y: 5.51, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1839683162
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839683158}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1871780358
 GameObject:
   m_ObjectHideFlags: 3
@@ -5410,7 +5516,7 @@ PrefabInstance:
     - target: {fileID: 4110328891096699174, guid: 0cb33c1a0934133479c978bf8149766c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.919937
+      value: 20.919952
       objectReference: {fileID: 0}
     - target: {fileID: 4110328891096699174, guid: 0cb33c1a0934133479c978bf8149766c,
         type: 3}
@@ -5420,7 +5526,7 @@ PrefabInstance:
     - target: {fileID: 4110328891096699174, guid: 0cb33c1a0934133479c978bf8149766c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -35.77063
+      value: -35.770626
       objectReference: {fileID: 0}
     - target: {fileID: 4110328891096699174, guid: 0cb33c1a0934133479c978bf8149766c,
         type: 3}
@@ -5489,7 +5595,7 @@ PrefabInstance:
     - target: {fileID: 5890761399209011165, guid: 3f6115cfa2fad50418b9aa2dfaa43e71,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.919937
+      value: 20.919952
       objectReference: {fileID: 0}
     - target: {fileID: 5890761399209011165, guid: 3f6115cfa2fad50418b9aa2dfaa43e71,
         type: 3}
@@ -5499,7 +5605,7 @@ PrefabInstance:
     - target: {fileID: 5890761399209011165, guid: 3f6115cfa2fad50418b9aa2dfaa43e71,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -35.77063
+      value: -35.770626
       objectReference: {fileID: 0}
     - target: {fileID: 5890761399209011165, guid: 3f6115cfa2fad50418b9aa2dfaa43e71,
         type: 3}
