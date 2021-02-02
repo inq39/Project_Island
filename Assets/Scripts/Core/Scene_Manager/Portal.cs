@@ -2,18 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.AI;
 
-namespace Island.Manager
+namespace Island.Scene_Manager
 {
-    public class SceneController : MonoBehaviour
+    public class Portal : MonoBehaviour
     {
-       
+        [SerializeField]
+        private int _sceneToLoad;
+        public Transform _spawnPoint;
+        
         private void OnTriggerEnter(Collider other)
         {
-            if (other.tag == "Player")
+            if (other.CompareTag("Player"))
             {
-                SceneManager.LoadScene("Prototype2_Island");
+                StartCoroutine("Transition");
             }
+        }
+
+        IEnumerator Transition()
+        {
+            DontDestroyOnLoad(this);
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_sceneToLoad);
+
+            while (!asyncOperation.isDone)
+            {
+                yield return null;
+            }
+            Debug.Log("Scene loaded!");
+            UpdatePlayer(GetOtherPortal());
+            Destroy(this);
+        }
+
+        private void UpdatePlayer(Portal otherPortal)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player == null)
+            {
+                Debug.LogError("Player is NULL.");
+            }
+            player.GetComponent<NavMeshAgent>().Warp(otherPortal._spawnPoint.transform.position);
+            player.transform.rotation = otherPortal._spawnPoint.transform.rotation;
+        }
+
+        private Portal GetOtherPortal()
+        {
+            var portals = FindObjectsOfType<Portal>();
+            foreach (var portal in portals)
+            {
+                if (portal == this) continue;
+                return portal;
+            }
+            return null;
         }
     }
 }
