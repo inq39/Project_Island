@@ -43,8 +43,8 @@ GameObject:
   - component: {fileID: 7931810258521339278}
   - component: {fileID: 7931810258521339279}
   m_Layer: 2
-  m_Name: Portal_1
-  m_TagString: Untagged
+  m_Name: Portal
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,3 +106,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneToLoad: 1
+  _spawnPoint: {fileID: 0}
+  _portal: 0
+  _fadeWaitTime: 0
